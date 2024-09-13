@@ -17,7 +17,7 @@ export default {
 
 <template>
 <!-- <font-awesome-icon icon="fa-solid fa-user-secret" /> -->
-<!-- <AppHeader></AppHeader> -->
+<AppHeader></AppHeader>
 <router-view/>
 <!-- <AppFooter></AppFooter> -->
 </template>
