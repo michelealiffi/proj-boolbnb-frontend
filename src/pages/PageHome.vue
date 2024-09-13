@@ -20,5 +20,6 @@ export default {
 </script>
 
 <template>
-    <h1>Homepage</h1>
+    <h1 class="text-center">Homepage</h1>
+    <AppApartmentCard></AppApartmentCard>
 </template>
