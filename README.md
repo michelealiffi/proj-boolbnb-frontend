@@ -15,9 +15,7 @@ Non ne rimarrete delusi! :muscle: :muscle: :muscle:
 ## Installazione
 
 ```bash
- - composer install
  - npm install
- - php artisan migrate
 ```
 
 ## Commit keywords
