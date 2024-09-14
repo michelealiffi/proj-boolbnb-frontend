@@ -39,14 +39,17 @@ export default {
             })
         },
         toggleService(service_id){
-            $id_position = this.store.search.services.indexOf(service_id)
-            if ($id_position !== -1){
+            const id_position = this.store.search.services.indexOf(service_id)
+            if (id_position !== -1){
                 // se il servizio era già selezionato lo rimuovo
                 this.store.search.services.slice($id_position, 1)
             } else {
                 // se il servizio non era selezionato lo inserisco
                 this.store.search.services.push(service_id)
             }
+        },
+        isActiveService(id){
+            return this.store.search.services.indexOf(id) !== -1;
         }
     },
     computed:{
@@ -72,8 +75,9 @@ export default {
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
     <div class="py-1 px-5 d-flex">
-        <div class="rounded-2 border p-2" v-for="service in store.available_services" @click="toggleService(service.id)">
-            service.name
+        <div class="rounded-2 border p-2 me-2" v-for="service in store.available_services" @click="toggleService(service.id)">
+            <b v-if="isActiveService(service.id)">{{service.name}}</b>
+            <span v-else>{{service.name}}</span>
         </div>
     </div>
     <div class="container">
