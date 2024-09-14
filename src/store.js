@@ -12,7 +12,8 @@ const store = reactive({
         num_of_pages: null,
         current_page: null,
         query: "",
-        distance: 20
+        distance: 20,
+        services: []
     }
 });
 

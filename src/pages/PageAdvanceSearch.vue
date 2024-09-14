@@ -22,7 +22,12 @@ export default {
         searchWithFilters(){
             const encodedSearch = encodeURIComponent(this.store.search.query)
 
-            axios.get(`${this.store.api.url}${this.store.api.endpoints.search}?search=${encodedSearch}&distance=${this.store.search.distance}`)
+            axios.get(`${this.store.api.url}${this.store.api.endpoints.search}`, {
+                params: {
+                    'search': encodedSearch,
+                    'range': this.store.search.distance
+                }
+            })
             .then(response => {
                 console.log(response);
                 if(response.data.status === "ok"){
@@ -33,21 +38,32 @@ export default {
             })
         }
     },
+    computed:{
+        hasResults(){
+            if(this.store.search.results.length > 0){
+                return true
+            }
+            return false
+        }
+    },
     beforeMount(){
-        this.searchWithFilters();
+        if(this.store.search.query){
+            this.searchWithFilters();
+        } else {
+            this.$router.push({name:'Home'})
+        }
+
     }
 
 }
 </script>
 
 <template>
-    <AppSearchBar></AppSearchBar>
+    <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <input type="text" placeholder="La tua ricerca" v-model="store.search.query">
-                <button @click="searchWithFilters()" class="btn btn-primary">Cerca</button>
-            </div>
+        <h2 v-if="hasResults">La tua ricerca:</h2>
+        <h2 v-else>La tua ricerca non ha prodotto risultati, prova a cercare qualcos'altro</h2>
+        <div class="row row-cols-lgs-3 row-cols-xl-4">
             <div class="col g-2" v-for="apartment in store.search.results">
                 <AppApartmentCard :apartment="apartment"/>
             </div>

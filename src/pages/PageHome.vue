@@ -31,7 +31,7 @@ export default {
             .catch(error => {
                 console.error('Errore nella chiamata API:', error);
             });
-        }
+        }    
     },
     emits:['searchApartments'],
     beforeMount(){
@@ -42,11 +42,7 @@ export default {
 </script>
 
 <template>
-    <AppSearchBar></AppSearchBar>
-    <div class="col-12">
-        <input type="text" placeholder="La tua ricerca" v-model="store.search.query">
-        <router-link :to="{ name:'AdvanceSearch'}" class="btn btn-primary">Cerca</router-link>
-    </div>
+    <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})"></AppSearchBar>
     <div class="container">
         <h2>Affidati a noi e scegli solo il meglio</h2>
         <div class="row row-cols-lgs-3 row-cols-xl-4">
