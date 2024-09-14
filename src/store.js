@@ -14,7 +14,8 @@ const store = reactive({
         query: "",
         distance: 20,
         services: []
-    }
+    },
+    available_services: []
 });
 
 export { store };

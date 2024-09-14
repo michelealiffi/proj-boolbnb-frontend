@@ -25,7 +25,8 @@ export default {
             axios.get(`${this.store.api.url}${this.store.api.endpoints.search}`, {
                 params: {
                     'search': encodedSearch,
-                    'range': this.store.search.distance
+                    'range': this.store.search.distance,
+                    'services': this.store.search.services
                 }
             })
             .then(response => {
@@ -36,6 +37,16 @@ export default {
             }).catch(error => {
                 console.error('Errore nella chiamata API:', error)
             })
+        },
+        toggleService(service_id){
+            $id_position = this.store.search.services.indexOf(service_id)
+            if ($id_position !== -1){
+                // se il servizio era già selezionato lo rimuovo
+                this.store.search.services.slice($id_position, 1)
+            } else {
+                // se il servizio non era selezionato lo inserisco
+                this.store.search.services.push(service_id)
+            }
         }
     },
     computed:{
@@ -60,6 +71,11 @@ export default {
 
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
+    <div class="py-1 px-5 d-flex">
+        <div class="rounded-2 border p-2" v-for="service in store.available_services" @click="toggleService(service.id)">
+            service.name
+        </div>
+    </div>
     <div class="container">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 v-else>La tua ricerca non ha prodotto risultati, prova a cercare qualcos'altro</h2>
