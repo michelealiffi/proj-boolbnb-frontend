@@ -1,6 +1,4 @@
 <script>
-import axios from 'axios';
-
 export default {
     name: 'Header',
 }
@@ -8,7 +6,7 @@ export default {
 
 <template>
     <header>
-        <nav class="navbar mx-5 px-5 my-3 border-bottom pb-5 border-secondary-subtle">
+        <nav class="navbar mx-5 px-5 my-3">
             <div class="container-fluid d-flex justify-content-between">
                 <div class="d-flex justify-content-start" type="submit">
                     <svg width="30" height="32" style="display: block;">
