@@ -4,7 +4,8 @@ const store = reactive({
     api: {
         url: 'http://localhost:8000/api',
         endpoints: {
-            search: '/apartments/search'
+            search: '/apartments/search',
+            services: '/services'
         }
     },
     search: {
