@@ -1,7 +1,8 @@
 <script>
-import AppApartmentCard from "../components/AppApartmentCard.vue"
+import AppApartmentCard from "../components/AppApartmentCard.vue";
+import AppSearchBar from "../components/AppSearchBar.vue";
 
-import { store } from '../store'
+import { store } from '../store';
 
 export default {
     name: 'Homepage',
@@ -11,7 +12,8 @@ export default {
         };
     },
     components: {
-        AppApartmentCard
+        AppApartmentCard,
+        AppSearchBar
     },
     beforeMount(){
         document.title = "Boolbnb - Home"
@@ -20,6 +22,6 @@ export default {
 </script>
 
 <template>
-    <h1 class="text-center">Homepage</h1>
+    <AppSearchBar></AppSearchBar>
     <AppApartmentCard></AppApartmentCard>
 </template>
