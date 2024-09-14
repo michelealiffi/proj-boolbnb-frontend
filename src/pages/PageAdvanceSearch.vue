@@ -42,7 +42,7 @@ export default {
             const id_position = this.store.search.services.indexOf(service_id)
             if (id_position !== -1){
                 // se il servizio era già selezionato lo rimuovo
-                this.store.search.services.slice($id_position, 1)
+                this.store.search.services.splice(id_position, 1)
             } else {
                 // se il servizio non era selezionato lo inserisco
                 this.store.search.services.push(service_id)
