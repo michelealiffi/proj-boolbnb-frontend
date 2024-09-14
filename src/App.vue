@@ -6,7 +6,6 @@ import AppHeader from './components/AppHeader.vue';
 // //import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
 // //library.add(faUserSecret)
-
 export default {
   components: {
     AppHeader

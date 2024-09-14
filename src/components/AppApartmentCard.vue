@@ -1,4 +1,14 @@
-<script></script>
+<script>
+export default {
+  name:"Apartment Card",
+  data(){
+    return {
+      
+    }
+  },
+  props: ['apartment']
+}
+</script>
 
 <template>
     <div class="card border-0" style="width: 18rem;">
@@ -6,7 +16,7 @@
             <img src="https://images.adsttc.com/media/images/6613/f564/ce8b/1207/0e8c/582b/newsletter/tokyo-blue-apartment-roovice_7.jpg?1712584050" class="card-img-top rounded" alt="...">
             <span class="heart-icon">&#9829;</span>
         </div>
-        <span class="fw-medium">Nome appartamento</span>
+        <span class="fw-medium">{{ apartment.title }}</span>
         <span>Nome user</span>
         <div class="d-flex gap-1">
             <span class="fw-medium">Prezzo</span><span>a notte</span>
