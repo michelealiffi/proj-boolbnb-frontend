@@ -15,7 +15,7 @@ export default {
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
-            <img :src="apartment.image" class="rounded apartment-img">
+            <img :src="apartment.image" class="rounded apartment-img" onerror="this.style.display='none'">
           </picture>
             <span class="heart-icon">&#9829;</span>
         </div>
