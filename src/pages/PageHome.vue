@@ -43,10 +43,10 @@ export default {
 
 <template>
     <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})"></AppSearchBar>
-    <div class="container">
+    <div class="container-xl">
         <h2 class="text-center mt-2">Affidati a noi e scegli solo il meglio</h2>
-        <div class="row row-cols-lgs-3 row-cols-xl-4">
-            <div class="col g-2" v-for="apartment in promoted_apartments">
+        <div class="row row-cols-lg-3 row-cols-xl-4 g-3">
+            <div class="col" v-for="apartment in promoted_apartments">
                 <AppApartmentCard :apartment="apartment"/>
             </div>
         </div>

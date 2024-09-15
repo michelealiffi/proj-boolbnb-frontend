@@ -87,11 +87,11 @@ export default {
             </span>
         </div>
     </div>
-    <div class="container text-center">
+    <div class="container text">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 v-else>La tua ricerca non ha prodotto risultati, prova a cercare qualcos'altro</h2>
-        <div class="row row-cols-lgs-3 row-cols-xl-4">
-            <div class="col g-2" v-for="apartment in store.search.results">
+        <div class="row row-cols-lg-3 row-cols-xl-4 gx-3 gy-5">
+            <div class="col" v-for="apartment in store.search.results">
                 <AppApartmentCard :apartment="apartment"/>
             </div>
         </div>

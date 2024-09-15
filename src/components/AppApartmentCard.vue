@@ -11,35 +11,50 @@ export default {
 </script>
 
 <template>
-    <div class="card border-0" style="width: 18rem;">
+    <div class="card border-0">
         <div class="card-img-container">
-            <img src="https://images.adsttc.com/media/images/6613/f564/ce8b/1207/0e8c/582b/newsletter/tokyo-blue-apartment-roovice_7.jpg?1712584050" class="card-img-top rounded" alt="...">
+          <picture>
+            <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
+            <img :src="apartment.image" class="rounded apartment-img">
+          </picture>
             <span class="heart-icon">&#9829;</span>
         </div>
         <span class="fw-medium">{{ apartment.title }}</span>
-        <span>Nome user</span>
+        <span>{{ apartment.userName }}</span>
         <div class="d-flex gap-1">
-            <span class="fw-medium">Prezzo</span><span>a notte</span>
+            <span class="fw-medium">{{ apartment.price }} &euro;</span><span>a notte</span>
         </div>
     </div>
 </template>
+
+<!-- 
+{ "id": 15, "title": "adsasda", "image": "asdas", "price": 410, "user_id": 1, "distance": 0, "userName": "Alice" }
+-->
 
 <style lang="scss" scoped>
 
 .card {
   position: relative;
-  width: 18rem;
   border: 1px solid #ddd;
-  background-color: #f9f9f9;
   overflow: hidden;
   
   .card-img-container {
     position: relative;
     width: 100%;
+
+    .apartment-img{
+      position: absolute;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
     
     .card-img-top {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
     }
 
