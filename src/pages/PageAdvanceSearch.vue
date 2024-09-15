@@ -74,13 +74,13 @@ export default {
 
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
-    <div class="py-1 px-5 d-flex">
+    <div class="py-1 px-5 d-flex justify-content-center mt-3">
         <div class="rounded-2 border p-2 me-2" v-for="service in store.available_services" @click="toggleService(service.id)">
             <b v-if="isActiveService(service.id)">{{service.name}}</b>
             <span v-else>{{service.name}}</span>
         </div>
     </div>
-    <div class="container">
+    <div class="container text-center">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 v-else>La tua ricerca non ha prodotto risultati, prova a cercare qualcos'altro</h2>
         <div class="row row-cols-lgs-3 row-cols-xl-4">

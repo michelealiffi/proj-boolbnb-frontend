@@ -7,7 +7,7 @@ export default{
 </script>
 
 <template>
-<div>
-    <h1>Pagina non trovata!</h1>
+<div class="mt-5 pt-5">
+    <h1 class="text-center mt-5 pt-5">Pagina non trovata!</h1>
 </div>
 </template>

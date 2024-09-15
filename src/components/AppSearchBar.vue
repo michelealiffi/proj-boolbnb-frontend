@@ -19,6 +19,9 @@ export default {
             if(this.store.search.query){
                 this.$emit('sendSearch')
             } 
+        },
+        goToAdvanceSearch() {
+            this.$router.push('/advanceSearch');
         }
     },
     emits:[
@@ -32,7 +35,7 @@ export default {
         <form class="mx-auto px-5" role="search" @submit.prevent="sendSearch()">
             <div class="position-relative d-flex">
                 <input v-model="store.search.query" class="form-control me-2 rounded-5 p-3" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn1 btn-color-searchbar rounded-5 position-absolute end-0 top-50" type="submit">
+                <button class="btn btn1 btn-color-searchbar rounded-5 position-absolute end-0 top-50" type="submit" @click="goToAdvanceSearch">
                     <i>
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                     </i>
