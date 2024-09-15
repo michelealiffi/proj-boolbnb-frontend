@@ -75,9 +75,16 @@ export default {
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
     <div class="py-1 px-5 d-flex justify-content-center mt-3">
-        <div class="rounded-2 border p-2 me-2" v-for="service in store.available_services" @click="toggleService(service.id)">
-            <b v-if="isActiveService(service.id)">{{service.name}}</b>
-            <span v-else>{{service.name}}</span>
+        <div class="rounded-2 border p-2 me-2 button-service" :class="{'active': isActiveService(service.id)}" 
+        @click="toggleService(service.id)" v-for="service in store.available_services">
+            <b v-if="isActiveService(service.id)">
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </b>
+            <span v-else>
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </span>
         </div>
     </div>
     <div class="container text-center">
@@ -91,6 +98,24 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss"scoped>
+@use '../assets/scss/partials/_variables.scss' as *;
 
+.button-service {
+    border-color: $brand-color-boolbnb;
+    color: $brand-color-boolbnb;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button-service:hover {
+    background-color: $brand-color-boolbnb;
+    color: white;
+}
+
+.button-service.active {
+    background-color: $brand-color-boolbnb;
+    color: white;
+}
 </style>
