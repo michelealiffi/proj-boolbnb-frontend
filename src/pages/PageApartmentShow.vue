@@ -1,15 +1,20 @@
 <script>
 import { store } from '../store'
+import AppMessageSend from '../components/AppMessageSend.vue'
 
 import axios from 'axios'
 
 export default {
     name: "apartment info",
+    components: {
+        AppMessageSend,
+    },
     data(){
         return {
             store,
             apartment: null,
             aloonPosition: { x: 0, y: 0, scale: 0 },
+            loading: null,
         }
     },
     methods: {
@@ -42,7 +47,7 @@ export default {
                 ...this.aloonPosition,
                 scale: 0 
             };
-        }
+        },
     },
     created(){
         this.getApartmentData();
@@ -102,10 +107,11 @@ export default {
                         </div>
                         <div>
                             <p>Hai qualche domanda o vuoi prenotare? Contatta l'host! <i class="fa-solid fa-arrow-down-long fa-sm"></i></p>
-                            <button class="button_magenta fw-bold" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
+                            <button class="button_magenta fw-bold" data-bs-toggle="modal" data-bs-target="#MessageModal" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
                                 Contatta
                                 <div class="alone" :style="{ top: `${aloonPosition.y}px`, left: `${aloonPosition.x}px`, transform: `scale(${aloonPosition.scale})` }"></div>
                             </button>
+                            <AppMessageSend ref="messageSendModal" />
                             <p class="pt-4">Non riceverai alcun addebito in questa fase</p>
                         </div>
                     </div>
@@ -117,6 +123,9 @@ export default {
             <div class="spinner"></div>
         </div>
     </div>
+
+    
+
 </template>
 
 
