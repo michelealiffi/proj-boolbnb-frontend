@@ -44,7 +44,7 @@ export default {
 
     .apartment-img{
       position: absolute;
-      z-index: 1000;
+      z-index: 3;
       width: 100%;
       height: 100%;
       top: 0;

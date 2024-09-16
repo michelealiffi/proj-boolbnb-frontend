@@ -7,11 +7,17 @@ library.add( faMagnifyingGlass, faLocationDot );
 
 import { store } from '../store';
 
+import axios from 'axios';
+
 export default {
     name: 'SearchBar',
     data(){
         return {
-            store
+            store,
+            autocompleteResuluts: [],
+            autocompleteTimeout: null,
+            shouldAutocomplete: true,
+            showAutocompleteList: true,
         }
     },
     methods: {
@@ -22,6 +28,44 @@ export default {
         },
         goToAdvanceSearch() {
             this.$router.push('/advanceSearch');
+        },
+        SuggestAutocomplete(){
+            // if(!this.shouldAutocomplete){
+            //     if (this.autocompleteTimeout == null){
+            //         this.autocompleteTimeout = setTimeout(() => {
+            //             this.shouldAutocomplete = true;
+            //             this.autocompleteTimeout = null;
+            //             this.SuggestAutocomplete()
+            //         }, 1000);
+            //     }
+            //     return
+            // }
+            if (this.store.search.query){
+                
+                axios.get(this.store.api.url+this.store.api.endpoints.autocomplete+`/${encodeURIComponent(this.store.search.query)}`)
+                .then(response => {
+                    if(response.data.result === 'ok'){
+                        this.autocompleteResuluts = response.data.data.results;
+                        this.shouldAutocomplete = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore nella chiamata API:', error);
+                });
+
+            } else {
+                this.autocompleteResuluts = []
+            }
+        },
+        selectOnClick(value){
+            console.log('qui')
+            this.store.search.query = value;
+        },
+        showSuggestions(){
+            this.showAutocompleteList = true;
+        },
+        hideSuggestion(){
+            this.showAutocompleteList = false
         }
     },
     emits:[
@@ -31,22 +75,22 @@ export default {
 </script>
 
 <template>
-    <div class="border-bottom border-secondary-subtle pb-3">
+    <div class="border-bottom border-secondary-subtle pb-3" @mouseenter="showSuggestions()" @mouseleave="hideSuggestion()">
         <form class="mx-auto px-5" role="search" @submit.prevent="sendSearch()">
             <div class="position-relative d-flex">
-                <input v-model="store.search.query" class="form-control me-2 rounded-5 p-3" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn1 btn-color-searchbar rounded-5 position-absolute end-0 top-50" type="submit" @click="goToAdvanceSearch">
+                <input @keyup="SuggestAutocomplete(event)" v-model="store.search.query" class="form-control me-2 rounded-5 p-3" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn1 btn-color-searchbar rounded-5 position-absolute end-0 top-50" type="submit">
                     <i>
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                     </i>
                 </button>
                 <!-- togliere d-none su ul per mostrare la lista-->
-                <ul class="border border-1 rounded-5 position-absolute w-100 z-1 bg-white p-3 mt-2 bottom-0 list-searchbar d-none">
-                    <li class="m-2 li-searchbar">
+                <ul class="border border-1 rounded-5 position-absolute w-100 bg-white p-3 mt-2 bottom-0 list-searchbar" v-show="showAutocompleteList && autocompleteResuluts.length > 0 && store.search.query !== '' ">
+                    <li class="m-2 li-searchbar" v-for="autocompleteSuggestion in autocompleteResuluts" @click="selectOnClick(autocompleteSuggestion.address.freeformAddress)">
                         <i>
                             <font-awesome-icon class="brand-color me-2" icon="fa-solid fa-location-dot" />
                         </i>
-                        Via del Marione 58, Rimini 57031
+                        {{ autocompleteSuggestion.address.freeformAddress }}
                     </li>
                 </ul>
             </div>
@@ -59,6 +103,7 @@ export default {
 
 .list-searchbar {
     transform: translateY(calc(100% + 25px));
+    z-index: 100;
 }
 
 .brand-color {
