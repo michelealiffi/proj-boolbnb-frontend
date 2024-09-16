@@ -6,7 +6,8 @@ const store = reactive({
         endpoints: {
             search: '/apartments/search',
             services: '/services',
-            autocomplete: '/tomtom/autocomplete'
+            autocomplete: '/tomtom/autocomplete',
+            apartment_info: '/apartments/info'
         }
     },
     search: {

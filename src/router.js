@@ -1,5 +1,6 @@
 import PageAdvanceSearch from './pages/PageAdvanceSearch.vue';
 import PageHome from './pages/PageHome.vue';
+import PageApartmentShow from './pages/PageApartmentShow.vue';
 
 import NotFound from './pages/NotFound.vue';
 
@@ -14,6 +15,11 @@ const routes = [
         component: PageAdvanceSearch,
         name: 'AdvanceSearch',
         path: '/advanceSearch'
+    },
+    {
+        component: PageApartmentShow,
+        name: 'ApartmentShow',
+        path: '/apartments/:slug'
     },
 
 

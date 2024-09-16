@@ -6,12 +6,17 @@ export default {
       
     }
   },
-  props: ['apartment']
+  props: ['apartment'],
+  methods: {
+    showApartmentInfo(){
+      this.$router.push({name:'ApartmentShow', params:{ 'slug':this.apartment.slug }})
+    }
+  }
 }
 </script>
 
 <template>
-    <div class="card border-0">
+    <div class="card border-0" @click="showApartmentInfo()">
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
