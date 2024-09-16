@@ -10,7 +10,8 @@ export default {
     name: "Advanced Search",
     data(){
         return {
-            store
+            store,
+            errorMassage: "Caricamento in corso..."
         }
     },
     components: {
@@ -32,10 +33,14 @@ export default {
             .then(response => {
                 console.log(response);
                 if(response.data.status === "ok"){
-                    store.search.results = response.data.apartments.data;
+                    this.store.search.results = response.data.apartments.data;
+                    if(this.store.search.results == null || this.store.search.results.length === 0){
+                        this.errorMassage = "Non ci sono appartamenti che corrispondono alla tua ricerca."
+                    }
                 }
             }).catch(error => {
                 console.error('Errore nella chiamata API:', error)
+                this.errorMassage = "Non riusciamo a cercare gli appartamenti prova a ricaricare la pagina."
             })
         },
         toggleService(service_id){
@@ -89,7 +94,7 @@ export default {
     </div>
     <div class="container text">
         <h2 v-if="hasResults">La tua ricerca:</h2>
-        <h2 v-else>La tua ricerca non ha prodotto risultati, prova a cercare qualcos'altro</h2>
+        <h2 class="text-center" v-else>{{ errorMassage }}</h2>
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-3 gy-5">
             <div class="col" v-for="apartment in store.search.results">
                 <AppApartmentCard :apartment="apartment"/>
