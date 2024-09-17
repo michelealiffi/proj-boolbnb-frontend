@@ -27,6 +27,8 @@ export default {
                 params: {
                     'search': encodedSearch,
                     'range': this.store.search.distance,
+                    'beds': this.store.search.beds,
+                    'rooms': this.store.search.rooms,
                     'services': this.store.search.services
                 }
             })
