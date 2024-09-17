@@ -11,7 +11,7 @@ export default {
     data(){
         return {
             store,
-            errorMassage: "Caricamento in corso..."
+            errorMassage: "Caricamento in corso...",
         }
     },
     components: {
@@ -97,7 +97,7 @@ export default {
         <h2 class="text-center" v-else>{{ errorMassage }}</h2>
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-3 gy-5">
             <div class="col" v-for="apartment in store.search.results">
-                <AppApartmentCard :apartment="apartment"/>
+                <AppApartmentCard :showDistance="true" :apartment="apartment"/>
             </div>
         </div>
     </div>
