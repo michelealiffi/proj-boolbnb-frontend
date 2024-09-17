@@ -3,6 +3,7 @@ import { store } from '../store';
 
 import AppApartmentCard from "../components/AppApartmentCard.vue";
 import AppSearchBar from "../components/AppSearchBar.vue";
+import AppFilter from '../components/AppFilter.vue';
 
 import axios from 'axios';
 
@@ -16,7 +17,8 @@ export default {
     },
     components: {
         AppApartmentCard,
-        AppSearchBar
+        AppSearchBar,
+        AppFilter
     },
     methods: {
         // cerca gli appartamenti basandosi sui filtri
@@ -79,6 +81,7 @@ export default {
 
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
+    <AppFilter></AppFilter>
     <div class="py-1 px-5 d-flex justify-content-center mt-3">
         <div class="rounded-2 border p-2 me-2 button-service" :class="{'active': isActiveService(service.id)}" 
         @click="toggleService(service.id)" v-for="service in store.available_services">
