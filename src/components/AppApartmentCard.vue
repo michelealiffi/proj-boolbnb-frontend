@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-    <div class="card border-0" @click="showApartmentInfo()">
+    <div class="card border-0 h-100" @click="showApartmentInfo()">
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
@@ -29,25 +29,32 @@ export default {
           </picture>
             <span class="heart-icon">&#9829;</span>
         </div>
-        <span class="fw-medium">{{ apartment.title }}</span>
-        <div class="d-flex justify-content-between">
-          <span>{{ apartment.address }}</span>
-          <span> {{ isNaN(apartment.distance) || apartment.distance === null ? '' : (Math.round(apartment.distance / 100) / 10) + ' km' }} </span>
-        </div>
-        <div id="rooms_counter" class="position-absolute pt-3">
-          <div v-if="apartment.beds > 0" class="bedrooms-container">
-            <i class="fa-solid fa-bed fa-sm"></i>
-            <span class="number">{{ apartment.beds }}</span>
-          </div>
-          <div v-if="apartment.bathrooms > 0" class="bathrooms-container">
-            <i class="fa-solid fa-toilet fa-sm"></i>
-            <span class="number">{{ apartment.bathrooms }}</span>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between">
-          <span>Host: {{apartment.userName}}</span> 
-          <div class="d-flex gap-1">
-            <span class="fw-medium">{{ apartment.price }} &euro;</span><span>a notte</span>
+        <div class="d-flex h-100 flex-column">
+          <!-- titolo -->
+          <div class="fw-medium">{{ apartment.title }}</div>
+
+          <!-- altri dati -->
+          <div>
+            <div class="d-flex justify-content-between">
+              <span>{{ apartment.address }}</span>
+              <span> {{ isNaN(apartment.distance) || apartment.distance === null ? '' : (Math.round(apartment.distance / 100) / 10) + ' km' }} </span>
+            </div>
+            <div id="rooms_counter" class="position-absolute pt-3">
+              <div v-if="apartment.beds > 0" class="bedrooms-container">
+                <i class="fa-solid fa-bed fa-sm"></i>
+                <span class="number">{{ apartment.beds }}</span>
+              </div>
+              <div v-if="apartment.bathrooms > 0" class="bathrooms-container">
+                <i class="fa-solid fa-toilet fa-sm"></i>
+                <span class="number">{{ apartment.bathrooms }}</span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Host: {{apartment.userName}}</span> 
+              <div class="d-flex gap-1">
+                <span class="fw-medium">{{ apartment.price }} &euro;</span><span>a notte</span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -108,8 +115,7 @@ export default {
 
   .d-flex {
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    justify-content: space-between;
   }
 }
 
