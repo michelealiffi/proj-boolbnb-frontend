@@ -15,9 +15,12 @@ export default {
         return {
             store,
             autocompleteResuluts: [],
-            autocompleteTimeout: null,
-            shouldAutocomplete: true,
             showAutocompleteList: true,
+
+            // autocomplete
+            autocompletedQuery: "",
+            autocompleteInterval: null,
+            autocompleteIntervalTime: 800
         }
     },
     methods: {
@@ -30,36 +33,35 @@ export default {
             this.$router.push('/advanceSearch');
         },
         SuggestAutocomplete(){
-            // if(!this.shouldAutocomplete){
-            //     if (this.autocompleteTimeout == null){
-            //         this.autocompleteTimeout = setTimeout(() => {
-            //             this.shouldAutocomplete = true;
-            //             this.autocompleteTimeout = null;
-            //             this.SuggestAutocomplete()
-            //         }, 1000);
-            //     }
-            //     return
-            // }
-            if (this.store.search.query){
-                
-                axios.get(this.store.api.url+this.store.api.endpoints.autocomplete+`/${encodeURIComponent(this.store.search.query)}`)
-                .then(response => {
-                    if(response.data.result === 'ok'){
-                        this.autocompleteResuluts = response.data.data.results;
-                        this.shouldAutocomplete = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Errore nella chiamata API:', error);
-                });
-
-            } else {
+            // se non c'è un indirizzo da cercare
+            if (this.store.search.query === ""){
                 this.autocompleteResuluts = []
+                return
             }
+
+            // se ho già cercato l'attuale indirizzo
+            if(this.store.search.query === this.autocompletedQuery){
+                return
+            }
+
+            // imposto l'ultim query cercata a quella attuale
+            this.autocompletedQuery = this.store.search.query
+
+            // cerco la query salvata per eventuali risultati   
+            axios.get(this.store.api.url+this.store.api.endpoints.autocomplete+`/${encodeURIComponent(this.autocompletedQuery)}`)
+            .then(response => {
+                if(response.data.result === 'ok'){
+                    this.autocompleteResuluts = response.data.data.results;
+                }
+            })
+            .catch(error => {
+                console.error('Errore nella chiamata API:', error);
+            });
+
         },
         selectOnClick(value){
-            console.log('qui')
             this.store.search.query = value;
+            this.$emit('sendSearch')
         },
         showSuggestions(){
             this.showAutocompleteList = true;
@@ -67,6 +69,9 @@ export default {
         hideSuggestion(){
             this.showAutocompleteList = false
         }
+    },
+    mounted(){
+        this.autocompleteInterval = setInterval( this.SuggestAutocomplete , this.autocompleteIntervalTime);
     },
     emits:[
         'sendSearch'
@@ -78,7 +83,7 @@ export default {
     <div class="border-bottom border-secondary-subtle pb-3" @mouseenter="showSuggestions()" @mouseleave="hideSuggestion()">
         <form class="mx-auto px-5" role="search" @submit.prevent="sendSearch()">
             <div class="position-relative d-flex">
-                <input @keyup="SuggestAutocomplete(event)" v-model="store.search.query" class="form-control me-2 rounded-5 p-3" type="search" placeholder="Search" aria-label="Search">
+                <input v-model="store.search.query" class="form-control me-2 rounded-5 p-3" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn1 btn-color-searchbar rounded-5 position-absolute end-0 top-50" type="submit">
                     <i>
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
