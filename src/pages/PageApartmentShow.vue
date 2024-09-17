@@ -111,7 +111,7 @@ export default {
                                 Contatta
                                 <div class="alone" :style="{ top: `${aloonPosition.y}px`, left: `${aloonPosition.x}px`, transform: `scale(${aloonPosition.scale})` }"></div>
                             </button>
-                            <AppMessageSend ref="messageSendModal" />
+                            <AppMessageSend ref="messageSendModal" :apartment_id="apartment.id"/>
                             <p class="pt-4">Non riceverai alcun addebito in questa fase</p>
                         </div>
                     </div>

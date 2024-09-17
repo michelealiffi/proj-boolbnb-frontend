@@ -3,8 +3,12 @@ import { createApp } from 'vue';
 //import style
 import './assets/scss/main.scss';
 
-//import bootstrap
-import '../node_modules/bootstrap';
+// Importa il CSS di Bootstrap
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+// Importa il bundle JavaScript di Bootstrap (inclusi i modali e altri plugin)
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 //import font-awesome
 import '@fortawesome/fontawesome-free/css/all.css';
