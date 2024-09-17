@@ -6,7 +6,12 @@ export default {
       
     }
   },
-  props: ['apartment'],
+  props: {
+    apartment:{},
+    showDistance: {
+      type: Boolean,
+      default: false,
+  }},
   methods: {
     showApartmentInfo(){
       this.$router.push({name:'ApartmentShow', params:{ 'slug':this.apartment.slug }})
@@ -25,10 +30,28 @@ export default {
             <span class="heart-icon">&#9829;</span>
         </div>
         <span class="fw-medium">{{ apartment.title }}</span>
-        <span>{{ apartment.userName }}</span>
-        <div class="d-flex gap-1">
-            <span class="fw-medium">{{ apartment.price }} &euro;</span><span>a notte</span>
+        <div class="d-flex justify-content-between">
+          <span>{{ apartment.address }}</span>
+          <span> {{ isNaN(apartment.distance) || apartment.distance === null ? '' : (Math.round(apartment.distance / 100) / 10) + ' km' }} </span>
         </div>
+        <div id="rooms_counter" class="position-absolute pt-3">
+          <div v-if="apartment.beds > 0" class="bedrooms-container">
+            <i class="fa-solid fa-bed fa-sm"></i>
+            <span class="number">{{ apartment.beds }}</span>
+          </div>
+          <div v-if="apartment.bathrooms > 0" class="bathrooms-container">
+            <i class="fa-solid fa-toilet fa-sm"></i>
+            <span class="number">{{ apartment.bathrooms }}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span>Host: {{apartment.userName}}</span> 
+          <div class="d-flex gap-1">
+            <span class="fw-medium">{{ apartment.price }} &euro;</span><span>a notte</span>
+          </div>
+        </div>
+        
+        
     </div>
 </template>
 
@@ -88,6 +111,32 @@ export default {
     gap: 1rem;
     align-items: center;
   }
+}
+
+#rooms_counter {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  z-index: 4;
+}
+
+.number {
+  position: relative;
+  top: -10px;
+  right: 7px;
+  background-color: #ff8757e3;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+#rooms_counter .fa-solid {
+  color: #494949;
+  background-color: rgba(255, 255, 255, 0.808);
+  border-radius: 50%;
+  padding: 12px 6px ;
 }
 
 </style>
