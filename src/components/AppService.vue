@@ -3,33 +3,20 @@ import { store } from '../store';
 
 import 'swiper/swiper-bundle.css'; // Importa lo stile di Swiper
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
-import axios from 'axios';
   
-  export default {
-    name: "Service",
-    components: {
-      Swiper,
-      SwiperSlide,
-    },
-    data() {
-      return {
-            store,
-            services: [],
-      };
-    },
-    mounted() {
-        // Effettua la chiamata API per ottenere i servizi dal backend
-        axios.get('/api/services')
-        .then(response => {
-            this.services = response.data; // Popola l'array con i servizi dal DB
-        })
-        .catch(error => {
-            console.error('Errore nel recupero dei servizi:', error);
-        });
-    },
-  };
-  </script>
+export default {
+  name: "Service",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+          store
+    };
+  },
+};
+</script>
 
 <template>
     <div class="swiper-container my-4">
@@ -40,7 +27,7 @@ import axios from 'axios';
           pagination
         >
           <!-- Cicla attraverso i servizi recuperati dal DB -->
-          <swiper-slide v-for="(service, index) in services" :key="index" class="text-center">
+          <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center">
             <!-- Icona dinamica e nome del servizio -->
             <i :class="service.icon_name"></i>
             {{ service.name }}

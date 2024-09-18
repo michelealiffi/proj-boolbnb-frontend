@@ -1,7 +1,6 @@
 <script>
 import AppApartmentCard from "../components/AppApartmentCard.vue";
 import AppSearchBar from "../components/AppSearchBar.vue";
-import AppService from "../components/AppService.vue";
 
 import { store } from '../store';
 
@@ -18,8 +17,7 @@ export default {
     },
     components: {
         AppApartmentCard,
-        AppSearchBar,
-        AppService
+        AppSearchBar
     },
     methods:{
         getPromotedApartments(){
@@ -48,8 +46,6 @@ export default {
     <div class="jumbotron-home container-fluid align-content-center">
         <h1 class="text-center shadow-h1 fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
     </div>
-
-    <AppService></AppService>
 
     <div class="container-xl my-5">
 
