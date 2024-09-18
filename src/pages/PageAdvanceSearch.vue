@@ -83,7 +83,7 @@ export default {
 
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
-    <AppFilter></AppFilter>
+    <AppFilter @send-search="searchWithFilters()"></AppFilter>
     <div class="py-1 px-5 d-flex justify-content-center mt-3">
         <div class="rounded-2 border p-2 me-2 button-service" :class="{'active': isActiveService(service.id)}" 
         @click="toggleService(service.id)" v-for="service in store.available_services">

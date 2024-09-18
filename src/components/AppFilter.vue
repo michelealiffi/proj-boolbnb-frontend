@@ -15,25 +15,43 @@ export default {
             distance: 1,      
             squareMeters: 20,  
             rooms: 1,       
-            bathrooms: 1,      
+            beds: 1,      
             priceMin: 50,
             priceMax: 500
         }
     },
     methods: {
-    // Assicurati che il prezzo massimo non sia inferiore al prezzo minimo
-    updatePriceMax() {
-      if (this.priceMin > this.priceMax) {
-        this.priceMax = this.priceMin;
+      // Assicurati che il prezzo massimo non sia inferiore al prezzo minimo
+      updatePriceMax() {
+        if (parseInt(this.priceMin) > parseInt(this.priceMax)) {
+          this.priceMax = parseInt(this.priceMin);
+        }
+      },
+      // Assicurati che il prezzo minimo non superi il prezzo massimo
+      updatePriceMin() {
+        if (parseInt(this.priceMax) < parseInt(this.priceMin)) {
+          this.priceMin = parseInt(this.priceMax);
+        }
+      },
+      resetPreviousData(){
+        console.log(this.beds, this.store.search.beds);
+        
+        this.store.search.beds = this.beds;
+        this.store.search.rooms = this.rooms;
+        this.store.search.distance = this.distance;
       }
     },
-    // Assicurati che il prezzo minimo non superi il prezzo massimo
-    updatePriceMin() {
-      if (this.priceMax < this.priceMin) {
-        this.priceMin = this.priceMax;
-      }
-    }
-  }
+    mounted(){
+      console.log(this.$refs.myModal);
+      
+      this.$refs.myModal.addEventListener('shown.bs.modal', (event) => {
+          this.beds = this.store.search.beds;
+          this.rooms = this.store.search.rooms;
+          this.distance = this.store.search.distance;
+      })  
+    },
+    emits:['sendSearch']
+
 }
 </script>
 
@@ -44,7 +62,7 @@ export default {
         </i>
     </button>
 
-    <div class="modal fade" id="modalFilter" tabindex="-1" aria-labelledby="modalFilterLabel" aria-hidden="true">
+    <div class="modal fade" ref="myModal" id="modalFilter" tabindex="-1" aria-labelledby="modalFilterLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -71,25 +89,24 @@ export default {
         
                 <hr>
                 
-                <h4>Stanze e Bagni</h4>
+                <h4>Stanze e Letti</h4>
 
                 <div class="my-4">
                     <!-- Stanze da Letto -->
                     <div class="mb-2">
                         <label for="rooms" class="form-label fw-bold">Quante stanze da letto deve avere?</label>
-                        <h4>{{ rooms }}</h4>
+                        <h4>{{ store.search.rooms }}</h4>
                         <input type="range" class="form-range" min="1" max="10" step="1"
-                            v-model="rooms" id="rooms"
+                            v-model="store.search.rooms" id="rooms"
                             name="rooms">
                     </div>
 
                     <!-- Bagni -->
                     <div class="mb-2">
-                        <label for="bathrooms" class="form-label fw-bold">Quanti bagni deve avere?</label>
-                        <h4>{{ bathrooms }}</h4>
-                        <input type="range" class="form-range" min="1" max="6" step="1"
-                            v-model="bathrooms" id="bathrooms"
-                            name="bathrooms">
+                        <label for="letti" class="form-label fw-bold">Quanti letti deve avere?</label>
+                        <h4>{{ store.search.beds }}</h4>
+                        <input type="range" class="form-range" min="1" max="20" step="1"
+                            v-model="store.search.beds" id="letti">
                     </div>
                 </div>
 
@@ -107,15 +124,15 @@ export default {
                 <!-- Distanza dal luogo in km -->
                 <div class="mb-2">
                     <label for="distance" class="form-label fw-bold">Distanza</label>
-                    <h4>{{ distance }} km</h4>
-                    <input type="range" class="form-range" min="1" max="20" step="0.5"
-                        v-model="distance" id="distance"
+                    <h4>{{ store.search.distance }} km</h4>
+                    <input type="range" class="form-range" min="1" max="40" step="0.5"
+                        v-model="store.search.distance" id="distance"
                         name="distance">
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-              <button type="button" class="btn btn-brand">Cerca Risultati</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="resetPreviousData()">Annulla</button>
+              <button type="button" class="btn btn-brand" data-bs-dismiss="modal" @click="$emit('sendSearch')">Cerca Risultati</button>
             </div>
           </div>
         </div>
