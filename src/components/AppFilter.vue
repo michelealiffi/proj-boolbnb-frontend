@@ -79,11 +79,11 @@ export default {
                     </div>
         
                     <!-- Slider prezzo minimo -->
-                    <input type="range" class="form-range" min="10" max="1000" step="5" v-model="priceMin"
+                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="priceMin"
                       @input="updatePriceMax" id="price-min" name="price-min">
         
                     <!-- Slider prezzo massimo -->
-                    <input type="range" class="form-range" min="10" max="1000" step="5" v-model="priceMax"
+                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="priceMax"
                       @input="updatePriceMin" id="price-max" name="price-max">
                 </div>
         
