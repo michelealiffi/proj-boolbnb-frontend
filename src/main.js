@@ -9,6 +9,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // Importa il bundle JavaScript di Bootstrap (inclusi i modali e altri plugin)
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
+// Importa il CSS di Swiper 
+import 'swiper/swiper-bundle.css';
 
 //import font-awesome
 import '@fortawesome/fontawesome-free/css/all.css';

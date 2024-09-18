@@ -1,6 +1,7 @@
 <script>
 import AppApartmentCard from "../components/AppApartmentCard.vue";
 import AppSearchBar from "../components/AppSearchBar.vue";
+import AppService from "../components/AppService.vue";
 
 import { store } from '../store';
 
@@ -17,7 +18,8 @@ export default {
     },
     components: {
         AppApartmentCard,
-        AppSearchBar
+        AppSearchBar,
+        AppService
     },
     methods:{
         getPromotedApartments(){
@@ -43,13 +45,41 @@ export default {
 
 <template>
     <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})"></AppSearchBar>
-    <div class="container-xl">
-        <h2 class="text-center mt-2">Affidati a noi e scegli solo il meglio</h2>
+    <div class="jumbotron-home container-fluid align-content-center">
+        <h1 class="text-center shadow-h1 fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
+    </div>
+
+    <AppService></AppService>
+
+    <div class="container-xl my-5">
+
+
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-4 gy-5">
             <div class="col" v-for="apartment in promoted_apartments">
-                <AppApartmentCard :apartment="apartment"/>
+                <AppApartmentCard class="pointer" :apartment="apartment"/>
             </div>
         </div>
     </div>
 
 </template>
+
+<style>
+.shadow-h1 {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 47vh;
+    padding-bottom: 47vh;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.jumbotron-home {
+    background-image: url(https://romecolosseumtickets.tours/wp-content/uploads/2022/05/rome-colosseum-and-forum.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 100vh;
+    
+}
+</style>
