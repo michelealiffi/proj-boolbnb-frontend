@@ -21,13 +21,13 @@ export default {
 </script>
 
 <template>
-    <div class="card border-0 h-100">
+    <div class="card border-0 h-100" @click="showApartmentInfo()">
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
             <img :src="apartment.image" class="rounded apartment-img" onerror="this.style.display='none'">
           </picture>
-          <button class="btn rounded details-button" @click="showApartmentInfo()">Dettagli</button>
+          <button class="btn rounded details-button">Dettagli</button>
           <div v-if="apartment.rooms > 0" class="rooms-label">
             {{ apartment.rooms }}
             <span v-if="apartment.rooms === 1">stanza</span>

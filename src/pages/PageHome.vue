@@ -43,7 +43,7 @@ export default {
 
 <template>
     <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})"></AppSearchBar>
-    <div class="jumbotron-home container-fluid align-content-center">
+    <div class="jumbotron-home align-content-center">
         <h1 class="text-center shadow-h1 fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
     </div>
 
