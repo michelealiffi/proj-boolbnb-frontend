@@ -23,10 +23,11 @@ export default {
     sendMessage(){
       this.sending_message = true;
 
-      if(this.email && this.message){
+      if(this.email && this.message && this.name){
         // invio i dati al backend
         axios.post(this.store.api.url+this.store.api.endpoints.send_message, {
           email: this.email,
+          name: this.name,
           content: this.message,
           apartment_id: this.apartment_id
         }).then(response => {
@@ -52,6 +53,7 @@ export default {
     this.$refs.myModal.addEventListener('hidden.bs.modal', (event) => {
       this.response_message.content = "";
       this.response_message.show = false;
+      this.name="";
       this.message = "";
       this.email = "";
     })  
@@ -70,11 +72,15 @@ export default {
         <div class="modal-body" v-show="!response_message.show">
           <form>
             <div class="mb-3">
-              <label for="email" class="form-label">* La tua email:</label>
+              <label for="name" class="form-label">Il tuo nome *</label>
+              <input type="email" class="form-control" :disabled="sending_message" id="name" v-model="name" required />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">La tua email *</label>
               <input type="email" class="form-control" :disabled="sending_message" id="email" v-model="email" required />
             </div>
             <div class="mb-3">
-              <label for="messageText" class="form-label">* Il tuo messaggio:</label>
+              <label for="messageText" class="form-label">Il tuo messaggio *</label>
               <textarea class="form-control" :disabled="sending_message" id="messageText" placeholder="Ciao, sono interessato a questo appartamento. Puoi fornirmi ulteriori dettagli sulle condizioni della prenotazione e su eventuali caratteristiche dell'appartamento?" rows="5" v-model="message" style="resize: vertical; min-height: 90px; max-height: 250px ; max-width: 100%;" required></textarea>
             </div>
           </form>
