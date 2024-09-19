@@ -2,8 +2,8 @@
 import { store } from '../store';
 
 import AppApartmentCard from "../components/AppApartmentCard.vue";
-import AppSearchBar from "../components/AppSearchBar.vue";
 import AppFilter from '../components/AppFilter.vue';
+import AppSearchBar from "../components/AppSearchBar.vue";
 import AppService from "../components/AppService.vue";
 
 import axios from 'axios';
@@ -69,7 +69,7 @@ export default {
                 return true
             }
             return false
-        }
+        },
     },
     beforeMount(){
         if(this.store.search.query){
@@ -86,20 +86,7 @@ export default {
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
     <AppFilter @send-search="searchWithFilters()"></AppFilter>
-    <!-- <AppService></AppService> -->
-    <div class="py-1 px-5 d-flex justify-content-center mt-3">
-        <div class="rounded-2 border p-2 me-2 button-service" :class="{'active': isActiveService(service.id)}" 
-        @click="toggleService(service.id)" v-for="service in store.available_services">
-            <b v-if="isActiveService(service.id)">
-                <i :class="service.icon_name"></i>
-                {{service.name}}
-            </b>
-            <span v-else>
-                <i :class="service.icon_name"></i>
-                {{service.name}}
-            </span>
-        </div>
-    </div>
+    <AppService></AppService>
     <div class="container text">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 class="text-center" v-else>{{ errorMassage }}</h2>
@@ -110,25 +97,3 @@ export default {
         </div>
     </div>
 </template>
-
-<style lang="scss"scoped>
-@use '../assets/scss/partials/_variables.scss' as *;
-
-.button-service {
-    border-color: $brand-color-boolbnb;
-    color: $brand-color-boolbnb;
-    text-decoration: none;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.button-service:hover {
-    background-color: $brand-color-boolbnb;
-    color: white;
-}
-
-.button-service.active {
-    background-color: $brand-color-boolbnb;
-    color: white;
-}
-</style>

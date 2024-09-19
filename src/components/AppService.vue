@@ -15,37 +15,74 @@ export default {
           store
     };
   },
+  methods: {
+    toggleService(service_id){
+            const id_position = this.store.search.services.indexOf(service_id)
+            if (id_position !== -1){
+                // se il servizio era già selezionato lo rimuovo
+                this.store.search.services.splice(id_position, 1)
+            } else {
+                // se il servizio non era selezionato lo inserisco
+                this.store.search.services.push(service_id)
+            }
+        },
+        isActiveService(id){
+            return this.store.search.services.indexOf(id) !== -1;
+        }
+  },
 };
 </script>
 
 <template>
-    <div class="swiper-container my-4">
-        <swiper
-          :slides-per-view="3"
-          :space-between="30"
-          navigation
-          pagination
-        >
-          <!-- Cicla attraverso i servizi recuperati dal DB -->
-          <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center">
-            <!-- Icona dinamica e nome del servizio -->
-            <i :class="service.icon_name"></i>
-            {{ service.name }}
-          </swiper-slide>
+<div class="container">
+  <swiper-container
+    :slides-per-view="3"
+    :space-between="spaceBetween"
+    :centered-slides="true"
+    :navigation="true"
+    :breakpoints="{
+      768: {
+        slidesPerView: 3,
+      },
+    }"
+  >
+    <!-- Cicla attraverso i servizi recuperati dal DB -->
+    <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center m-4">
+      <!-- Icona dinamica e nome del servizio -->
+        <div class="rounded-2 border p-2 m-2 button-service col-6" :class="{'active': isActiveService(service.id)}" 
+        @click="toggleService(service.id)">
+            <b v-if="isActiveService(service.id)">
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </b>
+            <span v-else>
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </span>
+        </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
+</template>
   
-        <!-- Navigazione -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </swiper>
-    </div>
-  </template>
+<style lang="scss"scoped>
+ @use '../assets/scss/partials/_variables.scss' as *;
   
-  <style scoped>
-  /* Personalizza la visualizzazione delle slide */
-  .swiper-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  </style>
+.button-service {
+      border-color: $brand-color-boolbnb;
+      color: $brand-color-boolbnb;
+      text-decoration: none;
+      transition-duration: 0.4s;
+      cursor: pointer;
+}
+  
+.button-service:hover {
+      background-color: $brand-color-boolbnb;
+      color: white;
+}
+  
+.button-service.active {
+      background-color: $brand-color-boolbnb;
+      color: white;
+}
+</style>
