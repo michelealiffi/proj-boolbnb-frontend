@@ -1,6 +1,6 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
-// import AppFooter from './components/AppFooter.vue';
+import AppFooter from './components/AppFooter.vue';
 // //import { library } from '@fortawesome/fontawesome-svg-core'
 
 // //import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
@@ -18,8 +18,8 @@ export default {
     }
   },
   components: {
-    AppHeader
-    //AppFooter
+    AppHeader,
+    AppFooter
   },
   methods: {
     getAvailableServices(){
@@ -46,5 +46,5 @@ export default {
 <!-- <font-awesome-icon icon="fa-solid fa-user-secret" /> -->
 <AppHeader></AppHeader>
 <router-view/>
-<!-- <AppFooter></AppFooter> -->
+<AppFooter></AppFooter>
 </template>
