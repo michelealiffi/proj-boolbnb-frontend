@@ -21,18 +21,13 @@ export default {
 </script>
 
 <template>
-    <div class="card border-0 h-100">
+    <div class="card border-0 h-100" @click="showApartmentInfo()">
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
             <img :src="apartment.image" class="rounded apartment-img" onerror="this.style.display='none'">
           </picture>
-          <button class="btn rounded details-button" @click="showApartmentInfo()">Dettagli</button>
-          <div v-if="apartment.rooms > 0" class="rooms-label">
-            {{ apartment.rooms }}
-            <span v-if="apartment.rooms === 1">stanza</span>
-            <span v-else>stanze</span>
-          </div>
+          <button class="btn rounded details-button">Scopri di più...</button>
           
         </div>
         <div class="d-flex h-100 flex-column">
@@ -53,6 +48,11 @@ export default {
               <div v-if="apartment.bathrooms > 0" class="bathrooms-container">
                 <i class="fa-solid fa-toilet fa-sm"></i>
                 <span class="number">{{ apartment.bathrooms }}</span>
+              </div>
+              <div v-if="apartment.rooms > 0" class="rooms-label">
+                <i class="fa-solid fa-vector-square fa-sm"></i>  
+                <span class="number">{{ apartment.rooms }}</span>
+                
               </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -137,18 +137,18 @@ export default {
   padding: 12px 6px ;
 }
 
-.rooms-label {
-  position: absolute;
-  top: 20px;
-  left: 0px;
-  background-color: #276e36;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 4;
-}
+// .rooms-label {
+//   position: absolute;
+//   top: 20px;
+//   left: 0px;
+//   background-color: #276e36;
+//   color: white;
+//   padding: 4px 8px;
+//   border-radius: 5px;
+//   font-size: 12px;
+//   font-weight: bold;
+//   z-index: 4;
+// }
 
 // Bottone in hover
 .details-button {
