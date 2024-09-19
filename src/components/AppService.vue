@@ -8,38 +8,39 @@ export default {
           store
     };
   },
+  emits: ['sendSearch'],
   methods: {
     toggleService(service_id){
-            const id_position = this.store.search.services.indexOf(service_id)
-            if (id_position !== -1){
-                // se il servizio era già selezionato lo rimuovo
-                this.store.search.services.splice(id_position, 1)
-            } else {
-                // se il servizio non era selezionato lo inserisco
-                this.store.search.services.push(service_id)
-            }
-        },
-        isActiveService(id){
-            return this.store.search.services.indexOf(id) !== -1;
-        }
+      const id_position = this.store.search.services.indexOf(service_id)
+      if (id_position !== -1){
+          // se il servizio era già selezionato lo rimuovo
+          this.store.search.services.splice(id_position, 1)
+      } else {
+          // se il servizio non era selezionato lo inserisco
+          this.store.search.services.push(service_id)
+      }
+      this.$emit('sendSearch')
+    },
+    isActiveService(id){
+        return this.store.search.services.indexOf(id) !== -1;
+    }
   },
 };
 </script>
 
 <template>
-<div class="container">
-        <div class="rounded-2 border p-2 m-2 button-service col-6" :class="{'active': isActiveService(service.id)}" 
-        @click="toggleService(service.id)">
-            <b v-if="isActiveService(service.id)">
-                <i :class="service.icon_name"></i>
-                {{service.name}}
-            </b>
-            <span v-else>
-                <i :class="service.icon_name"></i>
-                {{service.name}}
-            </span>
-        </div>
-</div>
+ <div class="container text-center">
+    <div class="rounded-2 border p-2 m-2 button-service" :class="{'active': isActiveService(service.id)}" @click="toggleService(service.id)" v-for="service in store.available_services">
+      <b v-if="isActiveService(service.id)">
+          <i :class="service.icon_name"></i>
+          {{service.name}}
+      </b>
+      <span v-else>
+          <i :class="service.icon_name"></i>
+          {{service.name}}
+      </span>
+    </div>
+  </div>       
 </template>
   
 <style lang="scss"scoped>
@@ -51,6 +52,7 @@ export default {
       text-decoration: none;
       transition-duration: 0.4s;
       cursor: pointer;
+      display: inline-block;
 }
   
 .button-service:hover {
