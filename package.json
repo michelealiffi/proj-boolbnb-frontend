@@ -14,7 +14,6 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
-    "swiper": "^11.1.14",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5"
   },

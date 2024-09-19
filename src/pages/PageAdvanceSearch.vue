@@ -48,19 +48,6 @@ export default {
                 console.error('Errore nella chiamata API:', error)
                 this.errorMassage = "Non riusciamo a cercare gli appartamenti prova a ricaricare la pagina."
             })
-        },
-        toggleService(service_id){
-            const id_position = this.store.search.services.indexOf(service_id)
-            if (id_position !== -1){
-                // se il servizio era già selezionato lo rimuovo
-                this.store.search.services.splice(id_position, 1)
-            } else {
-                // se il servizio non era selezionato lo inserisco
-                this.store.search.services.push(service_id)
-            }
-        },
-        isActiveService(id){
-            return this.store.search.services.indexOf(id) !== -1;
         }
     },
     computed:{
@@ -86,8 +73,8 @@ export default {
 <template>
     <AppSearchBar @send-search="searchWithFilters()"></AppSearchBar>
     <AppFilter @send-search="searchWithFilters()"></AppFilter>
-    <AppService></AppService>
-    <div class="container text">
+    <AppService @send-search="searchWithFilters()"></AppService>
+    <div class="container">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 class="text-center" v-else>{{ errorMassage }}</h2>
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-3 gy-5">

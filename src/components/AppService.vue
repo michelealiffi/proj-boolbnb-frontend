@@ -1,15 +1,8 @@
 <script>
 import { store } from '../store';
-
-import 'swiper/swiper-bundle.css'; // Importa lo stile di Swiper
-import { Swiper, SwiperSlide } from 'swiper/vue';
   
 export default {
   name: "Service",
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
   data() {
     return {
           store
@@ -35,20 +28,6 @@ export default {
 
 <template>
 <div class="container">
-  <swiper-container
-    :slides-per-view="3"
-    :space-between="spaceBetween"
-    :centered-slides="true"
-    :navigation="true"
-    :breakpoints="{
-      768: {
-        slidesPerView: 3,
-      },
-    }"
-  >
-    <!-- Cicla attraverso i servizi recuperati dal DB -->
-    <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center m-4">
-      <!-- Icona dinamica e nome del servizio -->
         <div class="rounded-2 border p-2 m-2 button-service col-6" :class="{'active': isActiveService(service.id)}" 
         @click="toggleService(service.id)">
             <b v-if="isActiveService(service.id)">
@@ -60,8 +39,6 @@ export default {
                 {{service.name}}
             </span>
         </div>
-    </swiper-slide>
-  </swiper-container>
 </div>
 </template>
   
