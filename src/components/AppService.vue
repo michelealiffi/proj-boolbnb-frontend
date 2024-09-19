@@ -34,40 +34,35 @@ export default {
 </script>
 
 <template>
-<swiper-container
-  :slides-per-view="3"
-  :space-between="spaceBetween"
-  :centered-slides="true"
-  :navigation="true"
-  :pagination="{
-  hideOnClick: true
-  }"
-  :breakpoints="{
-    768: {
-      slidesPerView: 3,
-    },
-  }"
->
-  <!-- Cicla attraverso i servizi recuperati dal DB -->
-  <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center">
-    <!-- Icona dinamica e nome del servizio -->
-      <div class="rounded-2 border p-2 me-2 button-service" :class="{'active': isActiveService(service.id)}" 
-      @click="toggleService(service.id)">
-          <b v-if="isActiveService(service.id)">
-              <i :class="service.icon_name"></i>
-              {{service.name}}
-          </b>
-          <span v-else>
-              <i :class="service.icon_name"></i>
-              {{service.name}}
-          </span>
-      </div>
-  </swiper-slide>
-
-  <!-- Navigazione -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
-</swiper-container>
+<div class="container">
+  <swiper-container
+    :slides-per-view="3"
+    :space-between="spaceBetween"
+    :centered-slides="true"
+    :navigation="true"
+    :breakpoints="{
+      768: {
+        slidesPerView: 3,
+      },
+    }"
+  >
+    <!-- Cicla attraverso i servizi recuperati dal DB -->
+    <swiper-slide v-for="(service, index) in store.available_services" :key="index" class="text-center m-4">
+      <!-- Icona dinamica e nome del servizio -->
+        <div class="rounded-2 border p-2 m-2 button-service col-6" :class="{'active': isActiveService(service.id)}" 
+        @click="toggleService(service.id)">
+            <b v-if="isActiveService(service.id)">
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </b>
+            <span v-else>
+                <i :class="service.icon_name"></i>
+                {{service.name}}
+            </span>
+        </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
 </template>
   
 <style lang="scss"scoped>

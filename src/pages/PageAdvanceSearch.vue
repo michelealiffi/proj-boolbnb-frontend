@@ -69,7 +69,7 @@ export default {
                 return true
             }
             return false
-        }
+        },
     },
     beforeMount(){
         if(this.store.search.query){
