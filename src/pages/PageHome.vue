@@ -42,14 +42,16 @@ export default {
 </script>
 
 <template>
-    <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})"></AppSearchBar>
+    <!-- Jumbron con Searchbar -->
     <div class="jumbotron-home align-content-center">
-        <h1 class="text-center shadow-h1 fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
+        <div class="container-fluid shadow-jumbo">
+            <h1 class="text-center fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
+            <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})" class="px-5 mx-5"></AppSearchBar>
+        </div>
     </div>
 
+    <!-- Appartamenti Sponsorizzati -->
     <div class="container-xl my-5">
-
-
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-4 gy-5">
             <div class="col" v-for="apartment in promoted_apartments">
                 <AppApartmentCard class="pointer" :apartment="apartment"/>
@@ -60,10 +62,10 @@ export default {
 </template>
 
 <style>
-.shadow-h1 {
+.shadow-jumbo {
     background-color: rgba(0, 0, 0, 0.5);
-    padding-top: 47vh;
-    padding-bottom: 47vh;
+    padding-top: 43.5vh;
+    padding-bottom: 43vh;
 }
 
 .pointer {
