@@ -17,7 +17,7 @@ const store = reactive({
         current_page: null,
         query: "",
         distance: 20,
-        beds: 3,
+        beds: 1,
         rooms: 1,
         services: []
     },
