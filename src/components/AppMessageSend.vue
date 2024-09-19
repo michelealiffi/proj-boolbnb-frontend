@@ -120,7 +120,7 @@ export default {
 .modal-content{
     border: 1px solid rgb(221, 221, 221);
     border-radius: 12px;
-    box-shadow: rgba(233, 30, 99, 0.8) 0px 0px 30px;
+    box-shadow: 0 0 15px 10px rgba(214, 4, 67, 0.13);
 }
 
 </style>
