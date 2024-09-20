@@ -1,9 +1,13 @@
 <script>
+import { store } from '../store'
+
+import axios from 'axios'
+
 export default {
   name:"Apartment Card",
   data(){
     return {
-      
+      store
     }
   },
   props: {
@@ -13,7 +17,17 @@ export default {
       default: false,
   }},
   methods: {
-    showApartmentInfo(){
+    showApartmentInfo(apartment_id){
+
+      axios.post(this.store.api.url+this.store.api.endpoints.add_visit, {apartment_id: apartment_id})
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('Errore nella chiamata API:', error);
+      })
+
+
       this.$router.push({name:'ApartmentShow', params:{ 'slug':this.apartment.slug }})
     }
   }
@@ -21,7 +35,7 @@ export default {
 </script>
 
 <template>
-    <div class="card border-0 h-100" @click="showApartmentInfo()">
+    <div class="card border-0 h-100" @click="showApartmentInfo(this.apartment.id)">
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">

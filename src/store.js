@@ -8,7 +8,8 @@ const store = reactive({
             services: '/services',
             autocomplete: '/tomtom/autocomplete',
             apartment_info: '/apartments/info',
-            send_message: '/messages/store'
+            send_message: '/messages/store',
+            add_visit: '/apartments/add_visit'
         }
     },
     search: {
