@@ -99,7 +99,7 @@ export default {
                 <h3 class="py-4">{{ apartment.title }}</h3>
     
                 <div>
-                    <img :src="apartment.image" :alt="apartment.title" class="img-fluid rounded-start" style="width:600px" />
+                    <img :src="apartment.image" :alt="apartment.title" class="img-fluid rounded" style="width:600px" />
                 </div>
             </div>
             <div class="col-6">
@@ -109,9 +109,13 @@ export default {
             </div>
             <div class="col me-5">
                 <h5 class="pt-4">{{ apartment.address }}</h5>
-                <div class="border-bottom pb-4">
-                    <span>{{ apartment.rooms }} stanza/e &middot;</span>
-                    <span>{{ apartment.bathrooms }} bagno/i &middot;</span>
+                <div class="border-bottom pb-4 d-flex gap-2">
+                    <span>{{ apartment.rooms }} stanz<span v-if="apartment.rooms > 1">e</span></span>
+                    <span>&middot;</span>
+                    <span>{{ apartment.beds }} post<span v-if="apartment.beds > 1">i</span><span v-else>o</span></span>
+                    <span>&middot;</span>
+                    <span>{{ apartment.bathrooms }} bagn<span v-if="apartment.bathrooms > 1">i</span><span v-else>o</span></span>
+                    <span>&middot;</span>
                     <span>{{ apartment.square_meters }} m²</span>
                 </div>
 
@@ -213,6 +217,11 @@ export default {
     to {
         transform: rotate(360deg);
     }
+}
+
+#myMap{
+    margin-top: 45px;
+    border-radius: 10px;
 }
 
 </style>

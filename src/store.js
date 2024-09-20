@@ -20,9 +20,13 @@ const store = reactive({
         distance: 20,
         beds: 1,
         rooms: 1,
+        priceMin: 50,
+        priceMax: 500,
+        squareMeters: 20,
         services: []
     },
     available_services: []
 });
 
 export { store };
+
