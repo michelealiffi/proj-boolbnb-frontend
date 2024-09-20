@@ -4,6 +4,10 @@ import AppMessageSend from '../components/AppMessageSend.vue'
 
 import axios from 'axios'
 
+import tt from "@tomtom-international/web-sdk-maps"
+
+
+
 export default {
     name: "apartment info",
     components: {
@@ -15,6 +19,8 @@ export default {
             apartment: null,
             aloonPosition: { x: 0, y: 0, scale: 0 },
             loading: null,
+            mapLoadingInterval: null,
+            map: null
         }
     },
     methods: {
@@ -48,10 +54,35 @@ export default {
                 scale: 0 
             };
         },
+        loadMap(){
+            if(document.getElementById("myMap") == null || this.apartment == null){
+                return
+            } else {
+                clearInterval(this.mapLoadingInterval)
+                let longitude = Number(this.apartment.longitude);
+                let latitude = Number(this.apartment.latitude);
+
+                let map = tt.map({
+                    key: "339jnUQ4eelXVAdO183Aqfa6tCLmSeoj",
+                    container: "myMap",
+                    center: [longitude , latitude],
+                    zoom: 14,
+
+                })
+                map.on('load', ()=>{  
+                    new tt.Marker().setLngLat([longitude, latitude]).addTo(map)
+                })
+            }
+        
+        }
     },
     created(){
         this.getApartmentData();
+    },
+    mounted(){
+        this.mapLoadingInterval = setInterval(this.loadMap, 100);
     }
+
 }
 </script>
 
@@ -64,60 +95,64 @@ export default {
         </div>
 
         <div v-else-if="apartment" class="row">
-        
-            <h3 class="py-4">{{ apartment.title }}</h3>
-
-            <div>
-                <img :src="apartment.image" :alt="apartment.title" class="img-fluid rounded-start" style="width:600px" />
+            <div class="col-6">
+                <h3 class="py-4">{{ apartment.title }}</h3>
+    
+                <div>
+                    <img :src="apartment.image" :alt="apartment.title" class="img-fluid rounded-start" style="width:600px" />
+                </div>
             </div>
-
-            <div class="row">
-                <div class="col me-5">
-                    <h5 class="pt-4">{{ apartment.address }}</h5>
-                    <div class="border-bottom pb-4">
-                        <span>{{ apartment.rooms }} stanza/e &middot;</span>
-                        <span>{{ apartment.bathrooms }} bagno/i &middot;</span>
-                        <span>{{ apartment.square_meters }} m²</span>
-                    </div>
-
-                    <div class="border-bottom pt-3">
-                        <p>Inserito da: <strong>{{ apartment.user.name }}</strong></p>
-                    </div>
-
-                    <div class="pt-3 border-bottom">
-                        <p>{{ apartment.description }}</p>
-                    </div>
-
-                    <div class="py-4">
-                        <h5>Cosa troverai</h5>
-                        <ul class="d-flex flex-wrap pt-3">
-                            <li v-for="service in apartment.services" :key="service.id" class="col-6">
-                                <i :class="service.icon_name"></i> {{ service.name }}
-                            </li>
-                        </ul>
-                    </div>
+            <div class="col-6">
+                <div class="h-100 py-5">
+                    <div id="myMap" class="h-100"></div>
+                </div>
+            </div>
+            <div class="col me-5">
+                <h5 class="pt-4">{{ apartment.address }}</h5>
+                <div class="border-bottom pb-4">
+                    <span>{{ apartment.rooms }} stanza/e &middot;</span>
+                    <span>{{ apartment.bathrooms }} bagno/i &middot;</span>
+                    <span>{{ apartment.square_meters }} m²</span>
                 </div>
 
-                <div id="price_section" class="col-4 mt-4">
-                    <div class="text-center px-4 py-4 mt-4">
-                        <div class="apartment-price">
-                            <p><strong>{{ apartment.price }} €</strong> notte</p>
-                            <p>Prezzo per 5 notti: <strong>{{ apartment.price * 5 }}€</strong></p>
-                            <p>Prezzo per una settimana: <strong>{{ apartment.price * 7 }}€</strong></p>
-                        </div>
-                        <div>
-                            <p>Hai qualche domanda o vuoi prenotare? Contatta l'host! <i class="fa-solid fa-arrow-down-long fa-sm"></i></p>
-                            <button class="button_magenta fw-bold" data-bs-toggle="modal" data-bs-target="#MessageModal" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
-                                Contatta
-                                <div class="alone" :style="{ top: `${aloonPosition.y}px`, left: `${aloonPosition.x}px`, transform: `scale(${aloonPosition.scale})` }"></div>
-                            </button>
-                            <AppMessageSend ref="messageSendModal" :apartment_id="apartment.id"/>
-                            <p class="pt-4">Non riceverai alcun addebito in questa fase</p>
-                        </div>
+                <div class="border-bottom pt-3">
+                    <p>Inserito da: <strong>{{ apartment.user.name }}</strong></p>
+                </div>
+
+                <div class="pt-3 border-bottom">
+                    <p>{{ apartment.description }}</p>
+                </div>
+
+                <div class="py-4">
+                    <h5>Cosa troverai</h5>
+                    <ul class="d-flex flex-wrap pt-3">
+                        <li v-for="service in apartment.services" :key="service.id" class="col-6">
+                            <i :class="service.icon_name"></i> {{ service.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="price_section" class="col-4 mt-4">
+                <div class="text-center px-4 py-4 mt-4">
+                    <div class="apartment-price">
+                        <p><strong>{{ apartment.price }} €</strong> notte</p>
+                        <p>Prezzo per 5 notti: <strong>{{ apartment.price * 5 }}€</strong></p>
+                        <p>Prezzo per una settimana: <strong>{{ apartment.price * 7 }}€</strong></p>
+                    </div>
+                    <div>
+                        <p>Hai qualche domanda o vuoi prenotare? Contatta l'host! <i class="fa-solid fa-arrow-down-long fa-sm"></i></p>
+                        <button class="button_magenta fw-bold" data-bs-toggle="modal" data-bs-target="#MessageModal" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
+                            Contatta
+                            <div class="alone" :style="{ top: `${aloonPosition.y}px`, left: `${aloonPosition.x}px`, transform: `scale(${aloonPosition.scale})` }"></div>
+                        </button>
+                        <AppMessageSend ref="messageSendModal" :apartment_id="apartment.id"/>
+                        <p class="pt-4">Non riceverai alcun addebito in questa fase</p>
                     </div>
                 </div>
             </div>
         </div>
+    
 
         <div v-else class="text-center py-5">
             <div class="spinner"></div>
