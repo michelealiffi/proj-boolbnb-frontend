@@ -33,7 +33,10 @@ export default {
                     'range': this.store.search.distance,
                     'beds': this.store.search.beds,
                     'rooms': this.store.search.rooms,
-                    'services': this.store.search.services
+                    'services': this.store.search.services,
+                    'min_price' : this.store.search.priceMin,
+                    'max_price' : this.store.search.priceMax,
+                    'square_meters' : this.store.search.squareMeters
                 }
             })
             .then(response => {

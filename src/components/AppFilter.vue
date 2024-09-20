@@ -23,14 +23,14 @@ export default {
     methods: {
       // Assicurati che il prezzo massimo non sia inferiore al prezzo minimo
       updatePriceMax() {
-        if (parseInt(this.priceMin) > parseInt(this.priceMax)) {
-          this.priceMax = parseInt(this.priceMin);
+        if (parseInt(this.store.search.priceMin) > parseInt(this.store.search.priceMax)) {
+          this.store.search.priceMax = parseInt(this.store.search.priceMin);
         }
       },
       // Assicurati che il prezzo minimo non superi il prezzo massimo
       updatePriceMin() {
-        if (parseInt(this.priceMax) < parseInt(this.priceMin)) {
-          this.priceMin = parseInt(this.priceMax);
+        if (parseInt(this.store.search.priceMax) < parseInt(this.store.search.priceMin)) {
+          this.store.search.priceMin = parseInt(this.store.search.priceMax);
         }
       },
       resetPreviousData(){
@@ -39,6 +39,9 @@ export default {
         this.store.search.beds = this.beds;
         this.store.search.rooms = this.rooms;
         this.store.search.distance = this.distance;
+        this.store.search.priceMin  = this.priceMin;
+        this.store.search.priceMax = this.priceMax;
+        this.store.search.squareMeters = this.squareMeters;
       }
     },
     mounted(){
@@ -48,6 +51,9 @@ export default {
           this.beds = this.store.search.beds;
           this.rooms = this.store.search.rooms;
           this.distance = this.store.search.distance;
+          this.priceMin = this.store.search.priceMin;
+          this.priceMax = this.store.search.priceMax;
+          this.squareMeters = this.store.search.squareMeters;
       })  
     },
     emits:['sendSearch']
@@ -75,15 +81,15 @@ export default {
                 <div class="mb-2">
                     <label for="price" class="form-label fw-bold">Fascia di prezzo (&euro;)</label>
                     <div>
-                      <h4 class="d-inline">{{ priceMin }} &euro; - {{ priceMax }} &euro;</h4>
+                      <h4 class="d-inline">{{ store.search.priceMin }} &euro; - {{ store.search.priceMax }} &euro;</h4>
                     </div>
         
                     <!-- Slider prezzo minimo -->
-                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="priceMin"
+                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="store.search.priceMin"
                       @input="updatePriceMax" id="price-min" name="price-min">
         
                     <!-- Slider prezzo massimo -->
-                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="priceMax"
+                    <input type="range" class="form-range" min=10 max=1000 step="5" v-model="store.search.priceMax"
                       @input="updatePriceMin" id="price-max" name="price-max">
                 </div>
         
@@ -115,9 +121,9 @@ export default {
                 <!-- Metri Quadrati deisiderati -->
                 <div class="mb-2">
                     <label for="square_meters" class="form-label fw-bold">Quanti metri quadrati dev'essere?</label>
-                    <h4>{{ squareMeters }} m²</h4>
+                    <h4>{{ store.search.squareMeters }} m²</h4>
                     <input type="range" class="form-range" min="20" max="1000" step="10"
-                        v-model="squareMeters" id="square_meters"
+                        v-model="store.search.squareMeters" id="square_meters"
                             name="square_meters">
                 </div>
 
@@ -125,7 +131,7 @@ export default {
                 <div class="mb-2">
                     <label for="distance" class="form-label fw-bold">Distanza</label>
                     <h4>{{ store.search.distance }} km</h4>
-                    <input type="range" class="form-range" min="1" max="40" step="0.5"
+                    <input type="range" class="form-range" min="1" max="40" step="1"
                         v-model="store.search.distance" id="distance"
                         name="distance">
                 </div>
