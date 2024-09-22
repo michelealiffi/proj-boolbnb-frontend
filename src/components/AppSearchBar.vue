@@ -15,7 +15,7 @@ export default {
         return {
             store,
             autocompleteResuluts: [],
-            showAutocompleteList: true,
+            showAutocompleteList: false,
 
             // autocomplete
             autocompletedQuery: "",
