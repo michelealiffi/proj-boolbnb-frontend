@@ -99,7 +99,7 @@ export default {
                 <h3 class="py-4">{{ apartment.title }}</h3>
     
                 <div>
-                    <img :src="apartment.image" :alt="apartment.title" class="img-fluid rounded" style="width:600px" />
+                    <img :src="store.images_url+apartment.image" :alt="apartment.title" class="img-fluid rounded" style="width:600px" />
                 </div>
             </div>
             <div class="col-6">

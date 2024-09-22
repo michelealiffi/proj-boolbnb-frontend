@@ -39,7 +39,7 @@ export default {
         <div class="card-img-container">
           <picture>
             <img src="https://i.redd.it/zvo9zlpf3dk71.jpg" class="card-img-top rounded" alt="...">
-            <img :src="apartment.image" class="rounded apartment-img" onerror="this.style.display='none'">
+            <img :src="store.images_url+apartment.image" class="rounded apartment-img" onerror="this.style.display='none'">
           </picture>
           <button class="btn rounded details-button">Scopri di più...</button>
           

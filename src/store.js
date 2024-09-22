@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 
 const store = reactive({ 
+    images_url: 'http://localhost:8000/storage/',
     api: {
         url: 'http://localhost:8000/api',
         endpoints: {
