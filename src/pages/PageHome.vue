@@ -54,7 +54,7 @@ export default {
     <div class="container-xl my-5">
         <div class="row row-cols-lg-3 row-cols-xl-4 gx-4 gy-5">
             <div class="col" v-for="apartment in promoted_apartments">
-                <AppApartmentCard class="pointer" :apartment="apartment"/>
+                <AppApartmentCard class="pointer" :apartment="apartment" :key="'appartment-'+apartment.id"/>
             </div>
         </div>
     </div>
