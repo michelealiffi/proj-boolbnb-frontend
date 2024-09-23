@@ -91,7 +91,7 @@ export default {
     <div class="container">
         <h2 v-if="hasResults">La tua ricerca:</h2>
         <h2 class="text-center" v-else>{{ errorMassage }}</h2>
-        <div class="row row-cols-lg-3 row-cols-xl-4 gx-3 gy-5 mb-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4  gx-3 gy-5 mb-5">
             <div class="col" v-for="apartment in store.search.results">
                 <AppApartmentCard :showDistance="true" :apartment="apartment"/>
             </div>

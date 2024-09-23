@@ -46,13 +46,13 @@ export default {
     <div class="jumbotron-home align-content-center">
         <div class="container-fluid shadow-jumbo">
             <h1 class="text-center fs-1 text-white">Affidati a noi e scegli solo il meglio</h1>
-            <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})" class="px-5 mx-5"></AppSearchBar>
+            <AppSearchBar @send-search="this.$router.push({name:'AdvanceSearch'})" class="px-1 px-lg-5 mx-1 mx-lg-5"></AppSearchBar>
         </div>
     </div>
 
     <!-- Appartamenti Sponsorizzati -->
     <div class="container-xl my-5">
-        <div class="row row-cols-lg-3 row-cols-xl-4 gx-4 gy-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gx-4 gy-5">
             <div class="col" v-for="apartment in promoted_apartments">
                 <AppApartmentCard class="pointer" :apartment="apartment" :key="'appartment-'+apartment.id"/>
             </div>

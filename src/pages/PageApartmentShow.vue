@@ -95,19 +95,19 @@ export default {
         </div>
 
         <div v-else-if="apartment" class="row">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <h3 class="py-4">{{ apartment.title }}</h3>
     
                 <div>
                     <img :src="store.images_url+apartment.image" :alt="apartment.title" class="img-fluid rounded" style="width:600px" />
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="h-100 py-5">
                     <div id="myMap" class="h-100"></div>
                 </div>
             </div>
-            <div class="col me-5">
+            <div class="col-12 col-md-8">
                 <h5 class="pt-4">{{ apartment.address }}</h5>
                 <div class="border-bottom pb-4 d-flex gap-2">
                     <span>{{ apartment.rooms }} stanz<span v-if="apartment.rooms > 1">e</span></span>
@@ -129,15 +129,15 @@ export default {
 
                 <div class="py-4">
                     <h5>Cosa troverai</h5>
-                    <ul class="d-flex flex-wrap pt-3">
-                        <li v-for="service in apartment.services" :key="service.id" class="col-6">
+                    <ul class="d-flex flex-wrap pt-3 p-0">
+                        <li v-for="service in apartment.services" :key="service.id" class="col-6 col-md-12">
                             <i :class="service.icon_name"></i> {{ service.name }}
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div id="price_section" class="col-4 mt-4">
+            <div id="price_section" class="col-12 col-md-4 mt-4">
                 <div class="text-center px-4 py-4 mt-4">
                     <div class="apartment-price">
                         <p><strong>{{ apartment.price }} €</strong> notte</p>
