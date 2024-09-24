@@ -86,7 +86,7 @@ export default {
 
 <template>
     <AppSearchBar @send-search="searchWithFilters(0, true)"></AppSearchBar>
-    <AppFilter @send-search="searchWithFilters()"></AppFilter>
+    <AppFilter @send-search="searchWithFilters(0, true)"></AppFilter>
     <AppService @send-search="searchWithFilters()"></AppService>
     <div class="container">
         <h2 v-if="hasResults">La tua ricerca:</h2>
