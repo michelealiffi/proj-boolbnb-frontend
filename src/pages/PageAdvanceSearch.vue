@@ -5,7 +5,7 @@ import AppApartmentCard from "../components/AppApartmentCard.vue";
 import AppFilter from '../components/AppFilter.vue';
 import AppSearchBar from "../components/AppSearchBar.vue";
 import AppService from "../components/AppService.vue";
-
+import AppSpinner from "../components/AppSpinner.vue";
 import axios from 'axios';
 
 export default {
@@ -13,18 +13,20 @@ export default {
     data(){
         return {
             store,
-            errorMassage: "Caricamento in corso...",
+            status: "loading",
         }
     },
     components: {
         AppApartmentCard,
         AppSearchBar,
         AppFilter,
-        AppService
+        AppService,
+        AppSpinner
     },
     methods: {
         // cerca gli appartamenti basandosi sui filtri
         searchWithFilters(move_page=0, reset=false){
+            this.status = "loading";
             this.store.search.results = [];
             const encodedSearch = encodeURIComponent(this.store.search.query)
             // reimposto la pagina a 1
@@ -55,12 +57,12 @@ export default {
                     this.store.search.num_of_pages = response.data.apartments.last_page;
                     this.store.search.current_page = response.data.apartments.current_page;
                     if(this.store.search.results == null || this.store.search.results.length === 0){
-                        this.errorMassage = "Non ci sono appartamenti che corrispondono alla tua ricerca."
+                        this.status = "empty"
                     }
                 }
             }).catch(error => {
                 console.error('Errore nella chiamata API:', error)
-                this.errorMassage = "Non riusciamo a cercare gli appartamenti prova a ricaricare la pagina."
+                this.status = "error"
             })
         }
     },
@@ -90,7 +92,15 @@ export default {
     <AppService @send-search="searchWithFilters(0, true)"></AppService>
     <div class="container">
         <h2 v-if="hasResults">La tua ricerca:</h2>
-        <h2 class="text-center" v-else>{{ errorMassage }}</h2>
+        <h2 class="text-center" v-else>
+            <AppSpinner v-if="this.status === 'loading'"/>
+            <div v-if="this.status === 'empty'">
+                <h2>Nessun appartamento corrisponde alla ricerca</h2>
+            </div>
+            <div v-if="this.status === 'error'">
+                <h2>Errore interno. Ti preghiamo di ricaricare la pagina</h2>
+            </div>
+        </h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4  gx-3 gy-5 mb-5">
             <div class="col" v-for="apartment in store.search.results">
                 <AppApartmentCard :showDistance="true" :apartment="apartment"/>

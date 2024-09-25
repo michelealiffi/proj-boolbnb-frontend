@@ -6,12 +6,13 @@ import axios from 'axios'
 
 import tt from "@tomtom-international/web-sdk-maps"
 
-
+import AppSpinner from '../components/AppSpinner.vue' 
 
 export default {
     name: "apartment info",
     components: {
         AppMessageSend,
+        AppSpinner
     },
     data(){
         return {
@@ -159,7 +160,7 @@ export default {
     
 
         <div v-else class="text-center py-5">
-            <div class="spinner"></div>
+            <AppSpinner/>
         </div>
     </div>
 
@@ -201,22 +202,6 @@ export default {
     transition: transform 0.2s ease, opacity 0.3s ease;
     box-shadow: 0 0 15px 10px rgba(247, 113, 3, 0.164);
     z-index: 0;
-}
-
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top: 4px solid #ff5761;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 #myMap{

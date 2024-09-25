@@ -5,9 +5,9 @@ import { store } from '../store';
 
 
 export default {
-  name: "Message Modal",
   data() {
-      return {
+    return {
+        name: "Message Modal",
         store,
         email: "",
         message: "",
@@ -31,7 +31,6 @@ export default {
           content: this.message,
           apartment_id: this.apartment_id
         }).then(response => {
-          console.log(response);
           this.sending_message = false;
           if(response.data.status === 'ok'){
             this.response_message.content = "Messaggio inviato correttamente";
@@ -48,8 +47,6 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$refs.myModal);
-    
     this.$refs.myModal.addEventListener('hidden.bs.modal', (event) => {
       this.response_message.content = "";
       this.response_message.show = false;
@@ -61,7 +58,7 @@ export default {
 };
 </script>
 
-<template>
+<template >
   <div class="modal fade" ref="myModal" id="MessageModal" tabindex="-1" aria-labelledby="MessageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog modal-dialog-centered">
       <div class="modal-content">
